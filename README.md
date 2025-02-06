@@ -15,11 +15,7 @@ The project uses a dataset containing over 2,500 MRI scan images from Kaggle. Th
 
 ## Technical Requirements
 - Python 3.8+
-- TensorFlow 2.x
-- NumPy
-- Matplotlib
-- scikit-learn
-- Pandas
+- Pytorch
 
 ## Installation
 
