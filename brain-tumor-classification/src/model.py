@@ -10,8 +10,11 @@ if __name__ == '__main__':
     import torch.optim as optim
     import matplotlib.pyplot as plt
     import numpy as np
+    from collections import Counter
+
 
     # Download training data from open datasets.
+    '''
     transform = transforms.Compose(
         [transforms.ToTensor(),
          transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -31,6 +34,42 @@ if __name__ == '__main__':
     classes = ('plane', 'car', 'bird', 'cat',
                'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
+    '''
+
+    # Define transformations (resize and convert to tensor)
+    transform = transforms.Compose([
+    transforms.Resize((224, 224)),  # Resize to 224x224
+    transforms.ToTensor(),  # Convert to tensor
+    transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # Normalize
+    ])
+
+    # Define dataset directories
+    train_dir = "brain-tumor-classification/src/image_dataset/Training"
+    test_dir = "brain-tumor-classification/src/image_dataset/Testing"
+
+    # Load datasets
+    train_dataset = datasets.ImageFolder(root=train_dir, transform=transform)
+    test_dataset = datasets.ImageFolder(root=test_dir, transform=transform)
+
+    # Create DataLoaders
+    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+
+    # Print class-to-index mapping
+    print("Class mapping:", train_dataset.class_to_idx)
+
+    # Check a batch of images and labels
+    images, labels = next(iter(train_loader))
+    print(f"Batch image shape: {images.shape}")
+    print(f"Batch labels: {labels}")
+
+    # Checking the label counts
+    label_counts = Counter(train_dataset.targets)
+    print("Class distribution:", label_counts)
+
+    label_counts = Counter(test_dataset.targets)
+    print("Class distribution:", label_counts)  
+    '''
     # functions to show an image
     def imshow(img):
         img = img / 2 + 0.5     # unnormalize
@@ -96,3 +135,4 @@ if __name__ == '__main__':
     # Show images
     imshow(torchvision.utils.make_grid(images))
     print('GroundTruth: ', ' '.join(f'{classes[labels[j]]:5s}' for j in range(4)))
+    '''
