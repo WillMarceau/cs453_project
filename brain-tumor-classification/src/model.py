@@ -44,16 +44,19 @@ if __name__ == '__main__':
     ])
 
     # Define dataset directories
-    train_dir = "brain-tumor-classification/src/image_dataset/Training"
-    test_dir = "brain-tumor-classification/src/image_dataset/Testing"
+    train_dir = "brain-tumor-classification/data/Training"
+    test_dir = "brain-tumor-classification/data/Testing"
+    valid_dir = "brain-tumor-classification/data/Validation"
 
     # Load datasets
     train_dataset = datasets.ImageFolder(root=train_dir, transform=transform)
     test_dataset = datasets.ImageFolder(root=test_dir, transform=transform)
+    valid_dataset = datasets.ImageFolder(root=valid_dir, transform=transform)
 
     # Create DataLoaders
     train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+    valid_loader = DataLoader(valid_dataset, batch_size=32, shuffle=False)
 
     # Print class-to-index mapping
     print("Class mapping:", train_dataset.class_to_idx)
@@ -65,10 +68,13 @@ if __name__ == '__main__':
 
     # Checking the label counts
     label_counts = Counter(train_dataset.targets)
-    print("Class distribution:", label_counts)
+    print("Training class distribution:", label_counts)
 
     label_counts = Counter(test_dataset.targets)
-    print("Class distribution:", label_counts)  
+    print("Testing class distribution:", label_counts)  
+
+    label_counts = Counter(valid_dataset.targets)
+    print("Validation class distribution:", label_counts)  
     '''
     # functions to show an image
     def imshow(img):
