@@ -21,8 +21,7 @@ The project uses a dataset containing over 2,500 MRI scan images from Kaggle. Th
 
 1. Clone the repository:
 ```
-git clone https://github.com/[username]/brain-tumor-classification.git
-cd brain-tumor-classification
+git clone git@github.com:WillMarceau/cs453_project.git
 ```
 
 2. Install required packages:
