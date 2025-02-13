@@ -54,5 +54,5 @@ class CNN(nn.Module):
         x = self.dense_model(x)
 
         # soft max is applied for us in cross entropy loss
-        
+
         return x
