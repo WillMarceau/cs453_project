@@ -23,31 +23,27 @@ The dataset is a combination of three other datasets: figshare, SARTAJ dataset, 
 ## Installation
 
 1. Clone the repository:
-  <git clone git@github.com:WillMarceau/cs453_project.git>
+  `git clone git@github.com:WillMarceau/cs453_project.git`
 2. Install required packages:
-  <pip install -r requirements.txt>
+  `pip install -r requirements.txt`
 
 ## Project Structure
-brain-tumor-classification/
-│
-├── data/                     # Dataset directory
-│   ├── training/            # Training data
-│   │   ├── glioma/         # Glioma tumor images
-│   │   ├── meningioma/     # Meningioma tumor images
-│   │   ├── notumor/        # No tumor images
-│   │   └── pituitary/      # Pituitary tumor images
-│   ├── validation/          # Validation data (same subfolders as training)
-│   └── testing/             # Test data (same subfolders as training)
-│
-├── src/                     # Source code
-│   ├── architectureCNN.py  # CNN model architecture definition
-│
-├── results/                 # Trained models and results
-├── runs/                    # Run logs
-│
-├── requirements.txt         # Project dependencies
-├── README.md                # Project documentation
-└── .gitignore              # Git ignore file
+**`data/`**: Contains the dataset split into `training`, `validation`, and `testing` folders.
+   - Each folder has subfolders for different tumor types (`glioma`, `meningioma`, `notumor`, `pituitary`).
+
+**`src/`**: Contains the source code for the project.
+   - `architectureCNN.py` defines the Convolutional Neural Network (CNN) model architecture.
+
+**`results/`**: Stores trained models, evaluation metrics, and other results.
+
+**`runs/`**: Contains logs for training runs (e.g., TensorBoard logs).
+
+**`requirements.txt`**: Lists all dependencies required for the project.
+
+**`README.md`**: Provides an overview of the project, setup instructions, and usage guidelines.
+
+**`.gitignore`**: Specifies files and directories to be ignored by Git.
+
 
 ## Model Architecture
 The project implements a Convolutional Neural Network (CNN) with the following key features:
