@@ -1,83 +1,85 @@
-# Brain Tumor Classification Using Machine Learning
+# Brain Tumor Classification Using Convolutional Neural Networks
 
 ## Project Overview
-This project implements a machine learning solution for automated brain tumor classification using MRI scans. The system utilizes a Multilayer Perceptron (MLP) architecture to classify brain MRI images into four categories: no tumor, glioma tumor, meningioma tumor, and pituitary tumor. This project was developed as part of the Data Mining course.
+This project implements a deep learning solution for automated brain tumor classification using MRI scans. The system utilizes a Convolutional Neural Network (CNN) architecture to classify brain MRI images into four categories: no tumor, glioma tumor, meningioma tumor, and pituitary tumor. This project was developed as part of the CS 453 Data Mining course at the University of Oregon.
 
 ## Problem Statement
-Traditional brain tumor detection relies heavily on manual analysis by radiologists, which can be time-consuming and subject to human error. This project aims to develop an automated classification system that can assist medical professionals in the initial screening process, potentially reducing diagnosis time and improving accuracy.
+Brain tumors can have devastating consequences if not identified swiftly, causing various medical conditions including loss of sensation, headaches, nausea, seizures, and even death. Traditional detection relies heavily on manual analysis by radiologists, which can be time-consuming and subject to human error. Our research leverages CNNs to develop an efficient automated classification system that can assist medical professionals in the diagnosis process, potentially reducing diagnosis time while maintaining high accuracy.
 
 ## Dataset
-The project uses a dataset containing over 2,500 MRI scan images from Kaggle. The dataset is organized into four categories:
+The project uses the "Brain Tumor MRI Dataset" from Kaggle, which contains 7,023 MRI scan images organized into four categories:
 - No Tumor
-- Glioma Tumor
-- Meningioma Tumor
+- Glioma Tumor (cancerous, originating from glial cells)
+- Meningioma Tumor (non-cancerous, originating from the membrane surrounding the brain)
 - Pituitary Tumor
+
+The dataset is a combination of three other datasets: figshare, SARTAJ dataset, and Br35H. Our implementation uses 5,712 images for training and 1,311 images for testing and validation.
 
 ## Technical Requirements
 - Python 3.8+
-- Pytorch
+- PyTorch
+- Other dependencies listed in requirements.txt
 
 ## Installation
 
 1. Clone the repository:
-```
-git clone git@github.com:WillMarceau/cs453_project.git
-```
-
+  <git clone git@github.com:WillMarceau/cs453_project.git>
 2. Install required packages:
-```
-pip install -r requirements.txt
-```
+  <pip install -r requirements.txt>
 
 ## Project Structure
-```
 brain-tumor-classification/
 │
-├── data/                      # Dataset directory
-│   ├── training/             # Training data
-│   ├── validation/           # Validation data
-│   └── testing/              # Test data
+├── data/                     # Dataset directory
+│   ├── training/            # Training data
+│   │   ├── glioma/         # Glioma tumor images
+│   │   ├── meningioma/     # Meningioma tumor images
+│   │   ├── notumor/        # No tumor images
+│   │   └── pituitary/      # Pituitary tumor images
+│   ├── validation/          # Validation data (same subfolders as training)
+│   └── testing/             # Test data (same subfolders as training)
 │
-├── src/                      # Source code
-│   ├── preprocessing.py      # Data preprocessing functions
-│   ├── model.py             # Model architecture definition
-│   └── train.py             # Training script
+├── src/                     # Source code
+│   ├── architectureCNN.py  # CNN model architecture definition
 │
-├── notebooks/                # Jupyter notebooks
-│   └── exploratory_analysis.ipynb
+├── results/                 # Trained models and results
+├── runs/                    # Run logs
 │
-├── results/                  # Trained models and results
-│
-├── requirements.txt          # Project dependencies
+├── requirements.txt         # Project dependencies
 ├── README.md                # Project documentation
 └── .gitignore              # Git ignore file
-```
-
-## Usage
-
-1. Download the dataset and place it in the `data` directory.
-
-2. Run the exploratory data analysis:
-```
-jupyter notebook notebooks/exploratory_analysis.ipynb
-```
-
-3. Train the model:
-```
-python src/train.py
-```
-
-4. Evaluate model performance:
-```
-python src/evaluate.py
-```
 
 ## Model Architecture
-The project implements a Multilayer Perceptron with the following key features:
-- Input Layer: Processes 128x128 pixel images
-- Hidden Layers: Two dense layers with dropout for regularization
-- Output Layer: Softmax classification for four categories
-- Optimization: Adam optimizer with categorical crossentropy loss
+The project implements a Convolutional Neural Network (CNN) with the following key features:
+
+### CNN Layers:
+- Input: RGB images (3 channels)
+- First Convolutional Layer: 8 filters with 3×3 kernel
+- Batch Normalization and ReLU Activation
+- Dropout (0.3) for regularization
+- Max Pooling (3×3, stride 3)
+- Second Convolutional Layer: 16 filters with 3×3 kernel
+- Batch Normalization and ReLU Activation
+- Dropout (0.3) for regularization
+- Max Pooling (3×3, stride 4)
+
+### Dense Layers:
+- Flatten Layer: Converts 2D feature maps to 1D feature vectors
+- First Dense Layer: 5184 → 512 nodes with ReLU activation
+- Dropout (0.4) for regularization
+- Output Layer: 512 → 4 nodes (one for each class)
+
+### Training Configuration:
+- Loss Function: Weighted Cross-Entropy Loss (adjusted for class imbalance)
+- Optimizer: Adam with learning rate 0.001 and weight decay 1e-4
+- Data Augmentation: Applied using PyTorch transformers for better generalization
+
+## Data Preprocessing
+The preprocessing pipeline includes:
+- Image resizing to ensure consistent dimensions
+- Data augmentation techniques (flipping, scaling, etc.)
+- Normalization to improve training stability
+- Class weighting to handle imbalanced class distribution
 
 ## Performance Metrics
 The model's performance is evaluated using:
@@ -86,11 +88,11 @@ The model's performance is evaluated using:
 - Precision
 - Confusion Matrix
 
-## Results
-[To be updated with actual model performance metrics]
-
-## Contributing
-This project is part of a course assignment and is not open for external contributions at this time.
+## Advantages of Our Approach
+- Balances model sophistication with practical utility
+- Employs data augmentation to improve generalization with limited data
+- Implements regularization techniques to prevent overfitting
+- Designed for deployment in resource-constrained clinical settings
 
 ## Team Members
 Amanda Hoelting, Ellison Largent, & Will Marceau
@@ -99,6 +101,6 @@ Amanda Hoelting, Ellison Largent, & Will Marceau
 This project is for educational purposes as part of the CS 453 Data Mining course at the University of Oregon. All rights reserved.
 
 ## Acknowledgments
-- Dataset source: Kaggle
+- Dataset source: Kaggle user Masoud Nickparvar
 - Course Instructor: Yu Wang
 - Data Mining Course, University of Oregon
